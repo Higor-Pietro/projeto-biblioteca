@@ -44,6 +44,11 @@ public class Biblioteca {
         livros.add(l);
         autores.add(a);
 
+        // Registrar no banco de dados
+
+        int autor_id = new AutoresDAO().cadastrarAutor(a);         //Aqui é feita a conexão do id do autor para a tabela livros
+        new LivrosDao().cadastrarLivro(l, autor_id);
+
         //Mensagem ao usuário
 
         System.out.println("Livro Adicionado!");
@@ -75,6 +80,8 @@ public class Biblioteca {
     // Método para adicionar 3 livros padrões no estoque de livro
 
     public void livrosPadrao(){
+
+        Random random = new Random();
 
         //Livros
         Livro l1 = new Livro();
@@ -117,7 +124,6 @@ public class Biblioteca {
         autores.add(a1);
         autores.add(a2);
         autores.add(a3);
-
     }
 
     // Método para gerar lista de Livros ao usuário
@@ -176,6 +182,8 @@ public class Biblioteca {
                 emprestimo.realizarEmprestimo(livros.get(c));
                 emprestimo.setId(random.nextInt(9999) + 1000);
                 emprestimos.add(emprestimo);
+                new EmprestimosDAO().cadastrarEmprestimo(emprestimo);
+
                 break;
             }
         }
@@ -217,6 +225,5 @@ public class Biblioteca {
     }
 
 }
-
 
 
