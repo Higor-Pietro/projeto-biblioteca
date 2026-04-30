@@ -209,6 +209,33 @@ public class Biblioteca {
 
     }
 
+    //Método Para Cancelar Emprestimo
+    public void cancelarEmprestimo(){
+        Scanner read = new Scanner(System.in);
+        listaEmprestimos();
+        System.out.println("Selecione o Id do emprestimo que quer cancelar: ");
+        int id = read.nextInt();
+        read.nextLine();
+        for (int c = 0 ; c < emprestimos.size(); c++){
+            if (id == emprestimos.get(c).getId()){
+                Livro livro = emprestimos.get(c).getLivro();
+                System.out.println("Você deletou o emprestimo do cliente " + emprestimos.get(c).getNomeCliente()
+                + " do livro " + livro.getTitulo());
+
+                new LivrosDao().alterarLivro(livro.getIdDataBase(),"DISPONÍVEL");              //Alterando a disponibilidade do Livro no Banco de Dados
+                new EmprestimosDAO().deletarEmprestimo(emprestimos.get(c).getIdDataBase());                 //Removendo empréstimo do Banco de Dados
+
+                emprestimos.remove(emprestimos.get(c));                                                     //Removendo Emprestimo da Array
+                livro.setDisponível(true);
+
+            }
+
+        }
+
+
+    }
+
+
     // Método para mostrar Lista de empréstimos
 
     public void listaEmprestimos(){
@@ -239,7 +266,8 @@ public class Biblioteca {
         System.out.println("[3] = Remover Livro da Lista    ");
         System.out.println("[4] = Realizar novo empréstimo  ");
         System.out.println("[5] = Verificar histórico de empréstimos");
-        System.out.println("[6] = Sair");
+        System.out.println("[6] = Cancelar empréstimo da Lista");
+        System.out.println("[7] = Sair");
         System.out.println("-------------------------------------------------------");
     }
 

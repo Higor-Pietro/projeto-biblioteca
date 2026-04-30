@@ -33,6 +33,9 @@ public class Main {
                     biblioteca.listaEmprestimos();
                     break;
                 case 6:
+                    biblioteca.cancelarEmprestimo();
+                    break;
+                case 7:
                     break;
             }
 

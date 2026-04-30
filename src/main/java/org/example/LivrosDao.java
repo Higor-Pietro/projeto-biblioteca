@@ -57,4 +57,20 @@ public class LivrosDao {
         }
 
     }
+
+    public void alterarLivro(int idLivro, String disponibilidade){
+
+        String sql = "UPDATE livros SET disponível=? where id=? ";
+
+        try{
+            PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);
+
+            ps.setString(1, disponibilidade);
+            ps.setInt(2,idLivro);
+            ps.execute();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

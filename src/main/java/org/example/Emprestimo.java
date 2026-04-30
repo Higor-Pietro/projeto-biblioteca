@@ -11,6 +11,7 @@ public class Emprestimo {
     private String nomeCliente;
     private String dataEmpréstimo;
     private String dataDevolução;
+    private int idDataBase;
 
     // Método Construtor
 
@@ -62,6 +63,14 @@ public class Emprestimo {
         this.dataDevolução = dataDevolução;
     }
 
+    public int getIdDataBase() {
+        return idDataBase;
+    }
+
+    public void setIdDataBase(int idDataBase) {
+        this.idDataBase = idDataBase;
+    }
+
     // Métodos Públicos
 
     public void realizarEmprestimo(Livro livro){
@@ -69,6 +78,7 @@ public class Emprestimo {
 
         if (livro.isDisponível()){                              //Verificação se o Livro está disponível
             livro.setDisponível(false);
+            new LivrosDao().alterarLivro(livro.getIdDataBase(), "INDISPONÍVEL");
 
             // Seleção do nome do cliente
             System.out.print("Selecione seu nome: ");
