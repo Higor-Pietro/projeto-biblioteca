@@ -21,6 +21,7 @@ public class AutoresDAO {
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
+                autor.setIdDataBase(rs.getInt(1));
                 return rs.getInt(1);
             }
 
@@ -32,4 +33,24 @@ public class AutoresDAO {
 
         return 0;
        }
+
+    public void deletarAutor(int idAutor){
+
+        String sql = "DELETE FROM autores where id=?";
+
+        try{
+
+            PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);
+
+
+
+            ps.setInt(1, idAutor);
+            ps.execute();
+
+        }catch(SQLException e ){
+            e.printStackTrace();
+        }
+
+    }
+
     }

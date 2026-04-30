@@ -1,11 +1,12 @@
 package org.example;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EmprestimosDAO {
 
-    public void cadastrarEmprestimo(Emprestimo emprestimo){
+    public void cadastrarEmprestimo(Emprestimo emprestimo, int livroId){
 
         String sql = "INSERT INTO EMPRESTIMOS (livro_id, cliente, data_emprestimo, data_devolução) VALUES (?, ?, ?, ?)";
 
@@ -13,7 +14,7 @@ public class EmprestimosDAO {
 
         try{
             ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setInt(1,emprestimo.getLivro().getId());
+            ps.setInt(1,livroId);
             ps.setString(2,emprestimo.getNomeCliente());
             ps.setString(3,emprestimo.getDataEmpréstimo());
             ps.setString(4,emprestimo.getDataDevolução());
@@ -24,5 +25,22 @@ public class EmprestimosDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void deletarEmprestimo(int idEmprestimo){
+
+        String sql = "DELETE FROM emprestimos where id=?";
+
+        try{
+            PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);
+
+
+            ps.setInt(1,idEmprestimo);
+            ps.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 }

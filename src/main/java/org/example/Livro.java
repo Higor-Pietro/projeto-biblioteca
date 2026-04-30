@@ -8,6 +8,7 @@ public class Livro {
     private String titulo;
     private Autor autor;
     private boolean disponível;
+    private int idDataBase;
 
     // Método Construtor
 
@@ -49,6 +50,14 @@ public class Livro {
 
     public void setDisponível(boolean disponível) {
         this.disponível = disponível;
+    }
+
+    public int getIdDataBase() {
+        return idDataBase;
+    }
+
+    public void setIdDataBase(int idDataBase) {
+        this.idDataBase = idDataBase;
     }
 
     // Método para retornar disponibilidade

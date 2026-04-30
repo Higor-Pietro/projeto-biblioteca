@@ -49,6 +49,7 @@ public class Biblioteca {
         int autor_id = new AutoresDAO().cadastrarAutor(a);         //Aqui é feita a conexão do id do autor para a tabela livros
         new LivrosDao().cadastrarLivro(l, autor_id);
 
+
         //Mensagem ao usuário
 
         System.out.println("Livro Adicionado!");
@@ -69,7 +70,21 @@ public class Biblioteca {
             if (id == livros.get(c).getId()){
                 System.out.println("O livro " + livros.get(c).getTitulo()
                 + " foi removido da biblioteca. ");
+
+
+                //Removendo Livro e autor do Banco de Dados
+                Autor autor = livros.get(c).getAutor();
+                int autorId = autor.getIdDataBase();                                 //Variável para guardar Id do Banco de Dados do Autor
+
+                new LivrosDao().deletarLivro(livros.get(c).getIdDataBase());         //Pegando Id do Banco de Dados para remover Livro
+                new AutoresDAO().deletarAutor(autorId);                              //Pegando Id do Banco de Dados para remover Autor
+
+
+                // Removendo Livro e Autor da Array
+
+                autores.remove(livros.get(c).getAutor());
                 livros.remove(c);
+
                 System.out.println("-----------------------------------------");
             }
 
@@ -182,7 +197,11 @@ public class Biblioteca {
                 emprestimo.realizarEmprestimo(livros.get(c));
                 emprestimo.setId(random.nextInt(9999) + 1000);
                 emprestimos.add(emprestimo);
-                new EmprestimosDAO().cadastrarEmprestimo(emprestimo);
+
+                // Seleção do Empréstimo no Banco de Dados
+
+                int idLivro = livros.get(c).getIdDataBase();                                 //Pegando id do Banco de Dados do livro do empréstimo
+                new EmprestimosDAO().cadastrarEmprestimo(emprestimo, idLivro);
 
                 break;
             }

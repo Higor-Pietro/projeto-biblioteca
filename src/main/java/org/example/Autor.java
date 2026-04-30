@@ -6,6 +6,7 @@ public class Autor {
 
     private int id;
     private String nome;
+    private int idDataBase;
 
 
     // Método Construtor
@@ -34,4 +35,11 @@ public class Autor {
         this.id = id;
     }
 
+    public int getIdDataBase() {
+        return idDataBase;
+    }
+
+    public void setIdDataBase(int idDataBase) {
+        this.idDataBase = idDataBase;
+    }
 }
